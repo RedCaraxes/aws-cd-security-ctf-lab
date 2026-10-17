@@ -1,0 +1,18 @@
+region = "us-east-1"
+
+account_a_profile = "lab-account-a"
+account_b_profile = "lab-account-b"
+
+account_a_id = "111122223333"
+account_b_id = "444455556666"
+
+initial_role_name         = "CloudOpsInventoryRole"
+jenkins_role_name         = "JenkinsArtifactRole"
+prod_role_name            = "ProdDeployRole"
+legacy_recovery_user_name = "OperationsRecoveryUser"
+
+# Presenter/public IP only. Deliberately do not use 0.0.0.0/0.
+app_ingress_cidr = "203.0.113.10/32"
+
+# Vulnerable state. Change to "required" for the IMDSv2 remediation demo.
+app_imds_http_tokens = "optional"
