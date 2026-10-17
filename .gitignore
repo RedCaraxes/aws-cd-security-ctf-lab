@@ -12,6 +12,7 @@ tfplan
 # Local variable files
 *.tfvars
 *.tfvars.json
+*.lock.hcl
 
 # Keep public examples
 !terraform.tfvars.example

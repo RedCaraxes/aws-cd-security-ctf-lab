@@ -1,3 +1,13 @@
+data "aws_ec2_instance_type_offerings" "lab" {
+  provider      = aws.a
+  location_type = "availability-zone"
+
+  filter {
+    name   = "instance-type"
+    values = [var.instance_type]
+  }
+}
+
 resource "aws_vpc" "lab" {
   provider             = aws.a
   cidr_block           = "10.50.0.0/16"
@@ -22,7 +32,15 @@ resource "aws_subnet" "public" {
   provider                = aws.a
   vpc_id                  = aws_vpc.lab.id
   cidr_block              = "10.50.1.0/24"
+  availability_zone       = try(sort(data.aws_ec2_instance_type_offerings.lab.locations)[0], null)
   map_public_ip_on_launch = true
+
+  lifecycle {
+    precondition {
+      condition     = length(data.aws_ec2_instance_type_offerings.lab.locations) > 0
+      error_message = "The configured instance_type is not offered in an Availability Zone in this region."
+    }
+  }
 
   tags = {
     Name = "org-security-lab-public"

@@ -72,7 +72,7 @@ resource "aws_s3_object" "ec2_inventory" {
   bucket       = aws_s3_bucket.inventory.id
   key          = "ec2/latest/ec2_inventory.csv"
   content_type = "text/csv"
-  content = <<-CSV
+  content      = <<-CSV
 account_id,region,instance_id,name,state,private_ip,owner,application,environment,launch_note
 ${var.account_a_id},${var.region},${aws_instance.ssrf_app.id},ue1-cloudops-inventory-app-01,running,${aws_instance.ssrf_app.private_ip},CloudOps,Inventory,SHARED,current
 ${var.account_a_id},${var.region},${aws_instance.jenkins.id},ue1-shared-jenkins-agent-legacy-01,running,${aws_instance.jenkins.private_ip},DevOps,Jenkins,SHARED,legacy
@@ -84,7 +84,7 @@ resource "aws_s3_object" "ssm_inventory" {
   bucket       = aws_s3_bucket.inventory.id
   key          = "ssm/latest/managed_instances.csv"
   content_type = "text/csv"
-  content = <<-CSV
+  content      = <<-CSV
 instance_id,ping_status,platform_name,platform_version,owner,application
 ${aws_instance.jenkins.id},Online,Amazon Linux,2023,DevOps,Jenkins
 CSV
@@ -172,7 +172,7 @@ resource "aws_s3_object" "prod_customers" {
   bucket       = aws_s3_bucket.prod_data.id
   key          = "exports/customers.csv"
   content_type = "text/csv"
-  content = <<-CSV
+  content      = <<-CSV
 customer_id,name,email,plan
 CUST-1001,Ana Torres,ana.torres@example.test,enterprise
 CUST-1002,Carlos Vega,carlos.vega@example.test,business
